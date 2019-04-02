@@ -4,43 +4,45 @@ namespace App\ModelOpac;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Collection extends Model
+class Explnum extends Model
 {
     /**
     * The table associated with the model.
     *
     * @var string
     */
-    protected $table = 'collections';
+    protected $table = 'explnum';
     /**
      * The connection name for the model.
      *
      * @var string
      */
     protected $connection = 'biblio';
+
     /**
      * Asignacion de Clave primaria para el ELOQUENT
      * @var [type]
      */
-    protected $primaryKey = 'collection_id';
+    protected $primaryKey = 'explnum_id';
     public $incrementing = false;
 
-     /**
-      * Get the route key for the model.
-      *
-      * @return string
-      */
-     public function getRouteKeyName()
-     {
-         return 'collection_id';
-     }
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'explnum_id';
+    }
     /**
      *Relacion con el modelo Notice
      * @return relacion
      *
      */
-    public function notices(){
+    public function notice()
+    {
         return $this
-            ->hasMany('App/ModelOpac/Notice');
+            ->belongsTo('App/ModelOpac/Notice','explnum_notice');
     }
 }

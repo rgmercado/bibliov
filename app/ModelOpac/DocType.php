@@ -4,14 +4,14 @@ namespace App\ModelOpac;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Collection extends Model
+class DocType extends Model
 {
     /**
     * The table associated with the model.
     *
     * @var string
     */
-    protected $table = 'collections';
+    protected $table = 'docs_type';
     /**
      * The connection name for the model.
      *
@@ -22,7 +22,7 @@ class Collection extends Model
      * Asignacion de Clave primaria para el ELOQUENT
      * @var [type]
      */
-    protected $primaryKey = 'collection_id';
+    protected $primaryKey = 'idtyp_doc';
     public $incrementing = false;
 
      /**
@@ -32,15 +32,25 @@ class Collection extends Model
       */
      public function getRouteKeyName()
      {
-         return 'collection_id';
+         return 'idtyp_doc';
      }
+     /**
+      * Relacion con el modelo Notice
+      * @return relacion
+      *
+      */
+    public function notice(){
+        return $this
+            ->hasMany('App/ModelOpac/Notice', 'typdoc');
+    }
     /**
-     *Relacion con el modelo Notice
+     *Relacion con el modelo exemplaires
      * @return relacion
      *
      */
-    public function notices(){
+    public function exemplaires(){
         return $this
-            ->hasMany('App/ModelOpac/Notice');
+            ->hasMany('App/ModelOpac/Exemplair', 'expl_typdoc');
     }
+
 }

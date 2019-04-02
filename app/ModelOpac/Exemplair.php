@@ -19,4 +19,40 @@ class Exemplair extends Model
      */
     protected $connection = 'biblio';
 
+    /**
+     * Relacion con el modelo Notice
+     * @return relacion
+     *
+     */
+     /**
+      * Asignacion de Clave primaria para el ELOQUENT
+      * @var [type]
+      */
+     protected $primaryKey = 'expl_id';
+     public $incrementing = false;
+
+      /**
+       * Get the route key for the model.
+       *
+       * @return string
+       */
+      public function getRouteKeyName()
+      {
+          return 'expl_id';
+      }
+
+    public function notice(){
+        return $this
+            ->belongsTo('App/ModelOpac/Notice', 'expl_notice');
+    }
+    /**
+     *Relacion con el modelo DocType
+     * @return relacion
+     *
+     */
+    public function docType(){
+        return $this
+            ->belongsTo('App/ModelOpac/DocType','expl_typdoc');
+    }
+
 }

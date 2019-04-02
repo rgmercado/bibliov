@@ -42,6 +42,15 @@ $app->singleton(
 );
 
 /*
+* Integrating the Logger and Chrome Logger
+*/
+// if ($app->environment('local')) {
+//     $app->configureMonologUsing(function($monolog) {
+//     $monolog->pushHandler(new \Monolog\Handler\ChromePHPHandler());
+//     });
+// }
+
+/*
 |--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------

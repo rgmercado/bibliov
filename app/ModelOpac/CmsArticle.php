@@ -1,18 +1,18 @@
 <?php
 
-namespace App;
+namespace App\ModelOpac;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categorie extends Model
+class CmsArticle extends Model
 {
     /**
     * The table associated with the model.
     *
     * @var string
     */
-   protected $table = 'categories';
-   /**
+    protected $table = 'cms_articles';
+    /**
      * The connection name for the model.
      *
      * @var string

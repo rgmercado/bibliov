@@ -4,7 +4,10 @@
 <link href="{!! asset('css/narrow-jumbotron.css') !!}" rel="stylesheet"> -->
 @section('content')
 @include('common.msgsuccess')
-<?php $i = 1; ?>
+@php
+    $i = 1;
+@endphp
+
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-4">Lista de Ejemplares</h1>
@@ -22,20 +25,27 @@
                 </thead>
                 <tbody>
                     <!-- Lectura de los Datos-->
-                    @foreach ($ejemplares as $ejemplar)
 
-                    <tr>
-                        <th scope="row">{{ $i }}</th>
-                        <td>{{ $ejemplar->cota }}</td>
-                        <td>{{ $ejemplar->titulo }}</td>
-                        <td>{{ $ejemplar->autor }}</td>
-                        <td> {{ $ejemplar->coleccion }}</td>
-                        <td><a href="/document/{{ $ejemplar->cota }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Ir..</a> </td>
-                    </tr>
-                    <?php $i++; ?>
+                    @foreach ($ejemplares as $ejemplar)
+                        <tr>
+                            <th scope="row">{{ $i }}</th>
+                            <td>{{ $ejemplar->code }}</td>
+                            <td>{{ $ejemplar->tit1 }}</td>
+                            @php
+                                $autores = $ejemplar->authors()->first();
+                            @endphp
+                            <td>{{ $autores['index_author'] }}</td>
+                            <td> {{ $ejemplar->collection['collection_name'] }}</td>
+                            <td><a href="/doc/show/{{ $ejemplar->notice_id }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Ir..</a> </td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
                     @endforeach
                 </tbody>
+                {{ $ejemplares-> links ( ) }}
             </table>
+
         </div>
     </div>
 </div>

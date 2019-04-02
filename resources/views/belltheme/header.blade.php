@@ -34,14 +34,17 @@
         <nav class="nav social-nav pull-right d-none d-lg-inline">
             <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
         </nav>
-        <nav class="nav social-nav pull-right ">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+        <form method="GET" action="{{ route('doc.busquedagral') }}">
+            <nav class="nav social-nav pull-right ">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar Ejemplar..." aria-label="Buscar" aria-describedby="basic-addon1" name="busquedaGral" required>
                 </div>
-                <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" aria-describedby="basic-addon1">
-            </div>
-        </nav>
+            </nav>
+        </form>
+
     </div>
 </header>
 <!-- #header -->

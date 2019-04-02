@@ -22,6 +22,7 @@ Route::resource('document', 'DocumentoController');
 Route::resource('documenturl', 'DocumentourlController');
 /* Ruta para el recurso Roles de Usuario*/
 Route::resource('roles', 'RoleController');
+
 /*Ruta para autenticacion de usuarios*/
 Auth::routes();
 Route::get('/index', 'Auth\UserController@index')->name('users.index');
@@ -30,4 +31,9 @@ Route::get('/edit/{user}/edit', 'Auth\UserController@edit')->name('users.edit');
 Route::put('/update/{user}', 'Auth\UserController@update')->name('users.update');
 Route::delete('/register/{user}', 'Auth\RegisterController@destroy')->name('users.destroy');
 Route::get('/home', 'Auth\UserController@index')->name('home');
+
+
 /*Ruta para las busquedas de ejemplares de base de datos remota*/
+Route::get('/doc/busquedagral', 'EjemplarController@busquedaGral')->name('doc.busquedagral');
+Route::get('/doc/show/{ejemplar}', 'EjemplarController@show')->name('ejemplar.show');
+Route::get('/ejemplar/show/{ejemplar}', 'EjemplarController@show')->name('ejemplar.show');

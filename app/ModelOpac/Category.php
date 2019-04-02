@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\ModelOpac;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IndexInt extends Model
+class Category extends Model
 {
     /**
     * The table associated with the model.
     *
     * @var string
     */
-   protected $table = 'indexint';
+   protected $table = 'categories';
    /**
      * The connection name for the model.
      *
@@ -20,13 +20,14 @@ class IndexInt extends Model
     protected $connection = 'biblio';
 
     /**
-     *Relacion con el modelo Notice
+     *Relacion con el modelo Noeud
      * @return relacion
      *
      */
-    public function notices(){
+    public function noeud(){
         return $this
-            ->hasMany('App/ModelOpac/Notice')
+            ->hasOne('App/ModelOpac/Noeud')
             ->withTimestamps();
     }
+
 }
