@@ -7,10 +7,10 @@
 <div class="container">
     <div class="jumbotron">
         <img style="height: 200px; width: 180px; margin:20px;" src="{{ $uri->urlp }}" />
-        <h3 class="display-6">{{ $doc[0]->titulo }}</h3>
+        <h3 class="display-6">{{ $ejemplar->tit1 }}</h3>
         <hr />
         <h3 class="display-6">Resumen Idioma Original</h3>
-        <p class="text-justify">{{ $uri->resumenes }}</p>
+        <p class="text-justify">{{ $ejemplar->n_resume }}</p>
         <hr />
         <h3 class="display-6">Resumen Idioma Ingles</h3>
         <p class="text-justify">{{ $uri->resumenin }}</p>
@@ -19,28 +19,39 @@
     <div class="row marketing">
         <div class="col-lg-4">
             <h4 class="font-weight-bold">Autor</h4>
-            <p>{{ $doc[0]->autor }}</p>
+            @php
+                $autores = $ejemplar->authors()->first();
+            @endphp
+            <p>{{ $autores['index_author'] }}</p>
 
             <h4 class="font-weight-bold">Fecha</h4>
-            <p>{{ $doc[0]->fecha_pub }}</p>
+            <p>{{ $ejemplar->date_parution }}</p>
 
             <h4 class="font-weight-bold">ISDN</h4>
-            <p>{{ $doc[0]->isbn }}</p>
+            <p>{{ $ejemplar->code }}</p>
+
+            <h4 class="font-weight-bold">N Páginas</h4>
+            <p>{{ $ejemplar->npages }}</p>
+
         </div>
 
         <div class="col-lg-4">
             <h4 class="font-weight-bold">Coleccion</h4>
-            <p> {{ $doc[0]->coleccion }} </p>
+            <p> {{ $ejemplar->collection['collection_name'] }} </p>
 
             <h4 class="font-weight-bold">Editorial</h4>
-            <p>{{ $doc[0]->editorial }}.</p>
+            <p>{{ $ejemplar->publisher['index_publisher'] }} </p>
+
+            <h4 class="font-weight-bold">Volumen</h4>
+            <p> {{ $ejemplar->tnvol }} </p>
 
             <h4 class="font-weight-bold">Desacargar pdf</h4>
             <a href="{{ $uri->urldoc }}">{{ $uri->urldoc }}</a>
+
         </div>
 
         @auth
-        @if((Auth::user()->hasRole('admin')) and (Route::current()->getName() == 'document.show'))
+        @if((Auth::user()->hasRole('admin')) and (Route::current()->getName() == 'doc.show'))
             <div class="col-lg-4" style="background-color:#bbb" ;>
                 <h3 class="text-primary" style="padding:7px"><i class="fa fa-files-o"></i> Menu Documentos </h3>
                 <!-- Right Side Of Navbar -->
@@ -50,21 +61,27 @@
                             Crear/Actualizar<span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('documenturl.create', ['req_form' => 'doc', 'isbn_doc' => $doc[0]->cota])}}"><i class="fa fa-upload"></i>
+                            <a class="dropdown-item" href="{{ route('documenturl.create', ['req_form' => 'doc', 'isbn_doc' => $ejemplar->code, 'idnotice' => $ejemplar->notice_id])}}"><i class="fa fa-upload"></i>
                                 {{ __('Subir Documentos') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('documenturl.edit', ['isbn_doc' => $doc[0]->cota,'req_form' => 'doc']) }}"><i class="fa fa-pencil-square-o"></i>
+                            @php
+                                $code_sg = str_replace("-","",$ejemplar->code);
+                            @endphp
+                            <a class="dropdown-item" href="{{ route('documenturl.edit', ['isbn_doc' => $code_sg,'req_form' => 'doc', 'idnotice' => $ejemplar->notice_id]) }}"><i class="fa fa-pencil-square-o"></i>
                                 {{ __('Actualizar Documentos') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('documenturl.edit', ['isbn_doc' => $doc[0]->cota,'req_form' => 'resumen']) }}"><i class="fa fa-pencil"></i></i>
+                            <a class="dropdown-item" href="{{ route('documenturl.edit', ['isbn_doc' => $code_sg,'req_form' => 'resumen', 'idnotice' => $ejemplar->notice_id]) }}"><i class="fa fa-pencil"></i></i>
                                 {{ __('Actualizar Resuemenes') }}
                             </a>
 
                         </div>
                         <hr />
                         <!--Forma para eliminar registro con resumenes, portada y documento digital -->
-                        {!! Form::open([ 'route' => ['documenturl.destroy', $doc[0]->cota], 'method' => 'DELETE']) !!}
-                        {!! Form::submit('Eliminar Documentos', ['class'=>'dropdown-item', 'onclick' => "return confirm('Seguro desea eliminar Documentos?')"]) !!}
+                        {!! Form::open([ 'route' => ['documenturl.destroy',$code_sg], 'method' => 'DELETE']) !!}
+
+                            {!! Form::hidden('idnotice', $ejemplar->notice_id) !!}
+
+                            {!! Form::submit('Eliminar Documentos', ['class'=>'dropdown-item', 'onclick' => "return confirm('Seguro desea eliminar Documentos?')"]) !!}
                         {!! Form::close() !!}
 
                         <hr />

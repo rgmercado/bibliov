@@ -34,6 +34,7 @@ class Collection extends Model
      {
          return 'collection_id';
      }
+
     /**
      *Relacion con el modelo Notice
      * @return relacion
@@ -41,6 +42,17 @@ class Collection extends Model
      */
     public function notices(){
         return $this
-            ->hasMany('App/ModelOpac/Notice');
+            ->hasMany('App\ModelOpac\Notice','coll_id');
+    }
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $titulo
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBuscar($query, $titulo)
+    {
+        return $query->where('collection_name', "LIKE", "%$titulo%")->orderBy('collection_name','asc');
     }
 }

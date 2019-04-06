@@ -9,10 +9,10 @@
         </div>
         <div class="col-md-12">
             <h1>
-                Biblioteca Digital on line Unellez
+                Biblioteca Digital onLine Unellez
             </h1>
             <p class="tagline">
-                Ya estan a disposición toda nuestra producción intelectual que puede revisar on line.
+                Ya estan a disposición toda nuestra producción intelectual que puede revisar en línea.
             </p>
         </div>
     </div>
@@ -23,8 +23,8 @@
     <div class="container">
         <nav id="nav-menu-container">
             <ul class="nav-menu">
-                <li><a href="#about">Inicio</a></li>
-                <li><a href="{{ url('/document') }}">Investigaciones</a></li>
+                <li><a href="{{ route('inicio') }}">Inicio</a></li>
+                <li><a href="">Investigaciones</a></li>
                 <li><a href="#portfolio">Revistas</a></li>
                 <li><a href="#team">Equipo</a></li>
                 <li><a href="#contact">Contactactenos</a></li>

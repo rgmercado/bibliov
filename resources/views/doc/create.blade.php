@@ -16,7 +16,7 @@
                             @csrf
                             <input type="hidden" id="isbn" name="isbn" value="{{ $isbn }}">
                             <input type="hidden" id="req_form" name="req_form" value="{{ $formRequest }}">
-
+                            <input type="hidden" id="idnotice" name="idnotice" value="{{ $idnotice }}">
                             <!-- Campos de entrada forma subir archivos-->
                             <div class="form-group">
                                 <div class="input-group mb-3">

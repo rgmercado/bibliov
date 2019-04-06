@@ -17,7 +17,7 @@
                             @method('PUT')
                             <input type="hidden" id="isbn" name="isbn" value="{{ $urlmodel->cota_doc }}">
                             <input type="hidden" id="req_form" name="req_form" value="{{ $formRequest }}">
-
+                            <input type="hidden" id="idnotice" name="idnotice" value="{{ $idnotice }}">
                             <!-- Campos de entrada forma subir archivos-->
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -63,6 +63,7 @@
                                 @method('PUT')
                                 <input type="hidden" id="isbn" name="isbn" value="{{ $urlmodel->cota_doc }}">
                                 <input type="hidden" id="req_form" name="req_form" value="{{ $formRequest }}">
+                                <input type="hidden" id="idnotice" name="idnotice" value="{{ $idnotice }}">
 
                                 <div class="form-group row">
                                     <label for="resumenO" class="col-md-4 col-form-label text-md-right">{{ __('Resumen Idioma Original') }}</label>

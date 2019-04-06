@@ -50,4 +50,34 @@ class Author extends Model
     public function responsabilities(){
             return $this->hasMany('App/ModelOpac/Author');
     }
+    /**
+     *Relacion con el modelo Collection
+     * @return relacion
+     *
+     */
+    public function notices(){
+        return $this
+            ->hasManyThrough(
+                'App\ModelOpac\Notice',
+                'App\ModelOpac\Responsability',
+                'responsability_author',
+                'notice_id',
+                'author_id',
+                'responsability_notice'
+            );
+    }
+
+    /***********************************Scope locales de author************************************/
+
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $titulo
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBuscar($query, $titulo)
+    {
+        return $query->where('index_author', "LIKE", "%$titulo%")->orderBy('index_author','asc');
+    }
 }

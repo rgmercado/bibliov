@@ -17,9 +17,8 @@ class CreateDocumentourlsTable extends Migration
             $table->increments('id');
             $table->string('urlp', 100)->nullable();
             $table->string('urldoc', 100)->nullable();
-            $table->char('cota_doc', 20)->unique()->change();
+            $table->char('cota_doc', 20)->unique();
             $table->timestamps();
-            $table->foreign('cota_doc')->references('cota')->on('documentos')->onDelete('cascade');
         });
     }
 

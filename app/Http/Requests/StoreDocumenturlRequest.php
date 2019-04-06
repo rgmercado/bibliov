@@ -26,7 +26,7 @@ class StoreDocumenturlRequest extends FormRequest
         return [
             'portada' => 'nullable|image',
             'ejemplar' => 'nullable|file',
-            'cota_doc' => 'unique:documenturl,cota_doc',
+            'cota_doc' => 'unique:documentourls,cota_doc',
             'resumenes' => 'nullable',
             'resumenin' => 'nullable',
         ];

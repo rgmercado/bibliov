@@ -28,8 +28,6 @@ class Notice extends Model
     protected $primaryKey = 'notice_id';
 
     public $incrementing = false;
-    public $condicion = '';
-
     /**
      * Get the route key for the model.
      *
@@ -59,20 +57,20 @@ class Notice extends Model
         return $this
             ->belongsTo('App\ModelOpac\Publisher', 'ed1_id');
     }
-    public function publisherEd2()
+    public function publisher2()
     {
         return $this
             ->belongsTo('App\ModelOpac\Publisher', 'ed2_id');
     }
     /**
-     *Relacion con el modelo Collection
+     *Relacion con el modelo Responsability
      * @return relacion
      *
      */
     public function responsability()
     {
         return $this
-            ->hasMany('App/ModelOpac/Notice');
+            ->hasMany('App\ModelOpac\Notice');
     }
     /**
      *Relacion con el modelo Collection
@@ -81,16 +79,14 @@ class Notice extends Model
      */
     public function collection()
     {
-        return $this
-            ->belongsTo('App\ModelOpac\Collection', 'coll_id');
+        return $this->belongsTo('App\ModelOpac\Collection', 'coll_id');
     }
     /**
      *Relacion con el modelo Collection
      * @return relacion
      *
      */
-    public function authors()
-    {
+    public function authors(){
         return $this
             ->hasManyThrough(
                 'App\ModelOpac\Author',
@@ -98,34 +94,10 @@ class Notice extends Model
                 'responsability_notice',
                 'author_id',
                 'notice_id',
-                'responsability_notice'
+                'responsability_author'
             );
     }
-    /**
-     *Relacion con el modelo Explnum
-     * @return relacion
-     *
-     */
-    public function explnum()
-    {
-        return $this
-            ->hasOne('App\ModelOpac\Explnum', 'explnum_notice');
-    }
 
-    /**
-     * tipoEjemplar : Genera el query para buscar el tipo de Ejemplar
-     *  @param  [string] $query [consulta]
-     * @param  [string] $type  [cadean de busqueda]
-     * @return [string]        [cadean de busqueda
-     */
-    public function tipoEjemplar()
-    {
-        return $this->condicion = '
-                    ->Select(\'notices.notice_id\', \'exemplaires.expl_typdoc\', \'docs_type.idtyp_doc\', \'docs_type.tdoc_libelle\')
-                    ->leftJoin(\'exemplaires\', \'exemplaires.expl_notice\', \'=\', \'notices.notice_id\')
-                    ->leftJoin(\'docs_type\', \'exemplaires.expl_typdoc\', \'=\', \'docs_type.idtyp_doc\')';
-
-    }
     /***********************************Scope locales de notices************************************/
 
     /**
@@ -143,13 +115,36 @@ class Notice extends Model
      * Scope a query to only include users of a given type.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $type
+     * @param  mixed  $titulo
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeConsulta($query, $type)
+    public function scopeBuscarfe($query, $titulo)
     {
-        return $query->where('notice_id', $type);
+        $cad = $this->extraerDate($titulo);
+        return $query->whereYear('date_parution', $cad['op'], $cad['date'])->orderBy('date_parution','asc');
     }
+    /*
+    /**
+     *  @function extraer la ano de busqueda y el operador
+     * @return relacion
+     *
+     */
+    public function extraerDate($cadbusq){
 
+        $oper01 = array("=", ">", "<");
+        $oper02 = array(">=", "<=");
+        $op = substr($cadbusq, 0, 2);
+        $op1 = substr($cadbusq, 0, 1);
+        if (in_array("$op", $oper02)) {
+            $fecha = substr($cadbusq, 2, 4);
+        }elseif (in_array("$op1", $oper01)) {
+            $op = $op1;
+            $fecha = substr($cadbusq, 1, 4);
+        }else {
+            $op = "=";
+            $fecha = substr($cadbusq, 0, 4);
+        }
+        return array('op' => $op, 'date' => $fecha );
+    }
 
 }

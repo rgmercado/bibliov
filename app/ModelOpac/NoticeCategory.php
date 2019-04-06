@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\ModelOpac;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model
+class NoticeCategory extends Model
 {
     /**
     * The table associated with the model.
     *
     * @var string
     */
-   protected $table = 'series';
+   protected $table = 'notices_categories';
    /**
      * The connection name for the model.
      *

@@ -27,25 +27,30 @@ class DocumentourlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
+    public function create(Request $request){
+
         $request->user()->authorizeRoles('admin');
+        $isdn_sg = str_replace("-","",$request->input('isbn_doc'));
+        /*Verifica que el ejemplar del modelo Notice no tiene asociado archivo digital*/
+        if (Documentourl::where('cota_doc', $isdn_sg )->exists()){
+            return redirect()->route('doc.show', ['idnotice' =>$request->input('idnotice')])->with('status', 'Este documento Existe, debe utilizar la Opcion Actualizar!');
+        }
         $form_request = null;
         if ($request->has("req_form")){
             $form_request = $request->input('req_form');
         }
-        return view('doc.create', ['isbn' => $request->input('isbn_doc'), 'formRequest' => $form_request]);
+        return view('doc.create', ['isbn' => $isdn_sg, 'formRequest' => $form_request, 'idnotice' =>$request->input('idnotice')]);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreDocumenturlRequest $request)
     {
         // $request->user()->authorizeRoles('admin');
+
         $docuri = new Documentourl();
         $docuri->cota_doc = $request->input('isbn');
         $docuri->resumenes = $request->input('resumenO');
@@ -65,7 +70,7 @@ class DocumentourlController extends Controller
             $docuri->urldoc = $urldoc;
         }
         $docuri->save();
-        return redirect()->route('document.show', ['cota' =>$request->input('isbn')])->with('status', 'Creación Exitosa!');
+        return redirect()->route('doc.show', ['idnotice' =>$request->input('idnotice')])->with('status', 'Creación Exitosa!');
 
     }
 
@@ -88,13 +93,12 @@ class DocumentourlController extends Controller
      */
     public function edit(Request $request,$id)
     {
-
         $docum_url = Documentourl::findOrFail($id);
         $form_request = null;
         if ($request->has("req_form")){
             $form_request = $request->input('req_form');
         }
-        return view('doc.edit', ['formRequest' => $form_request])->with('urlmodel', $docum_url);
+        return view('doc.edit', ['formRequest' => $form_request, 'idnotice' =>$request->input('idnotice') ])->with('urlmodel', $docum_url);
     }
 
     /**
@@ -106,7 +110,8 @@ class DocumentourlController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $docuri = Documentourl::findOrFail($id);
+        $id_sg = str_replace("-","",$id);
+        $docuri = Documentourl::findOrFail($id_sg);
         if ($request->has('req_form')){
             /* Valores para los resumenes*/
             if ($request->input('req_form') == 'resumen') {
@@ -132,7 +137,7 @@ class DocumentourlController extends Controller
                 }
             }
         $docuri->save();
-        return redirect()->route('document.show', ['cota' =>$id])->with('status', 'Actualización Exitosa!');
+        return redirect()->route('doc.show', ['idnotice' =>$request->input('idnotice')])->with('status', 'Actualización Exitosa!');
         }
     }
 
@@ -142,9 +147,10 @@ class DocumentourlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $doc = Documentourl::findOrFail($id);
+    public function destroy(Request $request, $id){
+
+        $id_sg = str_replace("-","",$id);
+        $doc = Documentourl::findOrFail($id_sg);
         if ($doc->delete()) { // Borramos los archivos en el dicrectorio public\docorigen
             if (\File::exists($doc->urldoc) and (\File::exists($doc->urlp))){
                 \File::delete($doc->urldoc, $doc->urlp);
@@ -152,7 +158,7 @@ class DocumentourlController extends Controller
                 abort(404);
             }
         };
-        return redirect()->route('document.show', ['cota' => $id])->with('status', 'Eliminación Exitosa!');
+        return redirect()->route('doc.show', ['idnotice' => $request->input('idnotice')])->with('status', 'Eliminación Exitosa!');
 
     }
 }

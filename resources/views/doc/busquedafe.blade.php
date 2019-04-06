@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-4">Lista de Ejemplares</h1>
+        <h1 class="display-4">Ejemplares por Fecha de Publicación</h1>
         <div class="table-responsive">
                 {{ $ejemplares-> links ( ) }}
             <table class="table table-striped">
@@ -20,6 +20,7 @@
                         <th scope="col">TITULO</th>
                         <th scope="col">AUTOR</th>
                         <th scope="col">COLECCION</th>
+                        <th scope="col">FECHA PUB.</th>
                         <th scope="col"><i class="fa fa-eye"></i>  EDITAR</th>
                     </tr>
                 </thead>
@@ -32,16 +33,11 @@
                             <td>{{ $ejemplar->code }}</td>
                             <td>{{ $ejemplar->tit1 }}</td>
                             @php
-                                $autores = $ejemplar->authors;
-                                $autor = '';
+                                $autores = $ejemplar->authors()->first();
                             @endphp
-                            @foreach ($autores as $author)
-                                @php
-                                    $autor = $autor.$author['author_name'].','.$author['author_rejete'].'.'.' ';
-                                @endphp
-                            @endforeach
-                            <td>{{ $autor }}</td>
+                            <td>{{ $autores['index_author'] }}</td>
                             <td> {{ $ejemplar->collection['collection_name'] }}</td>
+                            <td> {{ $ejemplar->date_parution }}</td>
                             <td><a href="{{ route('doc.show', $ejemplar->notice_id) }} " class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Ir..</a> </td>
                         </tr>
                         @php
