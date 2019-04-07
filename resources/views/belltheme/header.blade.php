@@ -25,9 +25,9 @@
             <ul class="nav-menu">
                 <li><a href="{{ route('inicio') }}">Inicio</a></li>
                 <li><a href="">Investigaciones</a></li>
-                <li><a href="#portfolio">Revistas</a></li>
-                <li><a href="#team">Equipo</a></li>
-                <li><a href="#contact">Contactactenos</a></li>
+                <li><a href="">Revistas</a></li>
+                <li><a href="{{ route('param.showequipo') }}">Equipo</a></li>
+                <li><a href="{{ route('param.showcontac') }}">Contactactenos</a></li>
             </ul>
         </nav>
         <!-- #nav-menu-container -->

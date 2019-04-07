@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Item;
 
-class PortadaIniController extends Controller
+class ParametrosController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,17 +15,26 @@ class PortadaIniController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth')->except('portadaIni', 'showContac', 'showEquipo');
     }
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function portadaIni(Request $request)
     {
         return view('portadaini');
     }
+
+    public function showContac(){
+
+        return view('param.showcontac');
+    }
+    public function showEquipo(){
+
+        return view('param.showequipo');
+    }
+
 
 }

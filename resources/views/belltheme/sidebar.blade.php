@@ -96,24 +96,6 @@
 
                 </div>
             </li>
-            <li class="nav-item dropdown" style="padding-left: 15px;">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-address-card"></i>
-                    Setting <span class="caret"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('roles.index') }}"><i class="fa fa-tasks"></i>
-                        {{ __('Contactos') }}
-                    </a>
-                    <a class="dropdown-item" href="{{ route('roles.create') }}"><i class="fa fa-registered"></i>
-                        {{ __('Equipo') }}
-                    </a>
-                    <a class="dropdown-item" href="{{ route('roles.create') }}"><i class="fa fa-registered"></i>
-                        {{ __('Redes Sociales') }}
-                    </a>
-
-                </div>
-            </li>
-
         </ul>
         <hr />
     @endif

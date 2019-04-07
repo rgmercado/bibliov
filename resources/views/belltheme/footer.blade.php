@@ -11,7 +11,7 @@
                 <div class="col-lg-6 col-xs-12 text-lg-right text-center">
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <a href="index.html">Inicio</a>
+                            <a href="{{ route('inicio') }}">Inicio</a>
                         </li>
                         <li class="list-inline-item">
                             <a href="#about">Investigaciones</a>
@@ -20,10 +20,10 @@
                             <a href="#features">Revistas</a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#portfolio">Equipo</a>
+                            <a href="{{ route('param.showequipo') }}">Equipo</a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#contact">Contacto</a>
+                            <a href="{{ route('param.showcontac') }}">Contacto</a>
                         </li>
                     </ul>
                 </div>

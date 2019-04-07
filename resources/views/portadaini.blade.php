@@ -1,7 +1,7 @@
 @extends('belltheme.default')
 @section('title','Inicio Biblioteca Virtual Unellez')
 @section('content')
-
+@include('common.success')
 <section class="about" id="about">
     <div class="container text-center">
         <h2> Nuestra producción intelectual </h2>

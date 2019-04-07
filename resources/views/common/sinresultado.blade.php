@@ -4,7 +4,7 @@
 <link href="{!! asset('css/narrow-jumbotron.css') !!}" rel="stylesheet"> -->
 @section('content')
 <div class="container">
-    <div class="alert alert-warning">
+    <div class="alert alert-primary">
         <h1> Búsqueda sin resultado</h1>
     </div>
 </div>
