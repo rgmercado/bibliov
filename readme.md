@@ -1,14 +1,14 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
+Virtual Library System
+##Aim
 
-## Sistema de Biblioteca Virtual
+To lend and/or download theses and books registered in the library system: https://www.sigb.net
 
-##Objetivo
-<p> Permite revisar y/o descargar tesis libros registrados en el sistema de Biblioteca: https://www.sigb.net</p>
+##Content
 
+This system contains the modules of users, roles, document management and connection to the database of the SIGB system, from which all the copies are retrieved.
 
-##Contenido
-<p>Este Sistema Contiene los modulos de Usuario, Roles, Gestion de Documentos y enlace con la Base de Datos del sistema SIGB, de donde se recuperan todos los ejempares.</p>
+For the management of the system the user must register, for each copy present in the SIGB system you can attach the summary in English and Spanish and the digital file to be downloaded or viewed online in the browser.
 
-
-<p>Para La gestion del sistema el usuario debe registrase, para cada ejemplar presente en el sistema SIGB se puede anexar el resumen en espanol e ingles y el archivo Digital para ser descargado o visto en linea en el navegador.</p>
+Translated with DeepL.com (free version)
